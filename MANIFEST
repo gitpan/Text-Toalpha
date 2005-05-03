@@ -1,0 +1,12 @@
+Changes
+Makefile
+Makefile.PL
+MANIFEST
+README
+t
+t/fromalpha.t
+t/roundtrip.t
+t/toalpha.t
+t/use.t
+Toalpha.pm
+META.yml                                Module meta-data (added by MakeMaker)
