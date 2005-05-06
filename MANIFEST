@@ -1,9 +1,7 @@
 Changes
-Makefile
 Makefile.PL
 MANIFEST
 README
-t
 t/fromalpha.t
 t/roundtrip.t
 t/toalpha.t

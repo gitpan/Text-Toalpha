@@ -14,14 +14,18 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw();
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
+# NOTE: This module is NOT a good example of how to do this kind of task.  
+# Also, the purpose of it is not very apperant.  
+
+# This code is messy, but I don't know a better way to do this.  
 my @table = ( 'aa' .. 'zz' );
 my %out_table;
 
-# Build %out_table.  
-for (my $i = 0; $i != @table; ++$i) {
-	$out_table{$table[$i]} = chr($i);
+# Build %out_table.  Messier.  If you are a clean freak, abort now ;-).  
+for (0 .. $#table) {
+	$out_table{$table[$_]} = chr($_);
 }
 
 sub toalpha {
@@ -34,7 +38,7 @@ sub toalpha {
 sub fromalpha {
 	my $in = shift;
 	my $out = $in;
-	$out =~ s/(..)/$out_table{$1}/g;
+	$out =~ s/(..)/$out_table{$1}/eg;
 	return $out;
 }
 
@@ -57,6 +61,30 @@ B<Text::Toalpha> converts arbitary characters into letters.  The interface
 is the functions B<toalpha($var)> and B<fromalpha($alpha)>.  They do what
 there names suggest.  
 
+B<NOTE:> This module does not use a code format used anywhere else.  
+
+B<NOTE 2:> The code for this module is not a good example and is very messy.  
+
+=head1 WHY?
+
+=over 4
+
+=item *
+
+You want to send data (say, through email), but you don't want it to be mangled
+by the sending/reciving program.  
+
+=item *
+
+You have a bunch of binary data and want to have it in a convienently printable
+form.  
+
+=item *
+
+You want to just plain avoid non-alphabetic characters.  
+
+=back
+
 =head1 INTERNALS
 
 B<Text::Toalpha> uses a mapping table from characters to letters which maps
@@ -66,7 +94,8 @@ them into digrams.  Need more be said?
 
 The resulting output will double in size.  
 
-The permutation of characters to letters is not very well permutated.  
+The permutation of characters to letters is not very well permutated.  In English,
+the output characters are not very well distributed over the letters of the alphabet.  
 
 =head1 SEE ALSO
 
